@@ -15,7 +15,7 @@ class ProductService extends ServiceLanguages {
     
     protected $_rulesTranslations = [
         'product_id' => 'required|exists:products,id',
-        'locale' => 'required|string|max:255',
+        'locale' => 'required|string|min:2|max:2',
         'name' => 'required|string|max:255',
         'description' => 'nullable|string',
     ];
