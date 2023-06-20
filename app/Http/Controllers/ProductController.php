@@ -52,4 +52,20 @@ class ProductController extends Controller
             'data' => $product
         ],201);
     }
+
+    public function updateProduct(Request $request, $productId) {
+        $data = $request->all();
+        $product = $this->_service->updateProduct($data, $productId);
+
+        if($this->_service->hasErrors()) {
+            return response()->json([
+                'errors' => $this->_service->getErrors()
+            ], 400);
+        }
+
+        return response()->json([
+            'message' => "Product updated successfully",
+            'data' => $product
+        ], 200);
+    }
 }

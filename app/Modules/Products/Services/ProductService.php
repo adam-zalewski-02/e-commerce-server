@@ -54,4 +54,19 @@ class ProductService extends ServiceLanguages {
 
         return $product;
     }
+
+    public function updateProduct($data, $productId) {
+        $this->validate($data);
+        if($this->hasErrors()) {
+            return;
+        }
+
+        $product = $this->productById($productId);
+        $product->update($data);
+        foreach($data['translations'] as $translation) {
+            $product->translations()->where('locale', $translation['locale'])->update($translation);
+        }
+
+        return $product;
+    }
 }
