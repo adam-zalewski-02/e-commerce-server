@@ -21,4 +21,12 @@ class ProductService extends ServiceLanguages {
 
         return $data;
     }
+
+    public function productById($id) {
+        $data = $this->_model
+        ->with("translations")
+        ->where('id', $id)
+        ->first();
+        return $data;
+    }
 }

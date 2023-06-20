@@ -24,4 +24,16 @@ class ProductController extends Controller
             'data' => $this->_service->all($pages)
         ], 200);
     }
+
+    public function getProduct($productId) {
+        $product = $this->_service->productById($productId);
+
+        if($product === null) {
+            return response()->json([
+                'error' => "Product with id '$productId' not found"
+            ], 404);
+        }
+
+        return response()->json(['data' => $product], 200);
+    }
 }
