@@ -36,4 +36,20 @@ class ProductController extends Controller
 
         return response()->json(['data' => $product], 200);
     }
+
+    public function addProduct(Request $request) {
+        $data = $request->all();
+        $product = $this->_service->addProduct($data);
+
+        if($this->_service->hasErrors()) {
+            return response()->json([
+                'errors' => $this->_service->getErrors()
+            ], 400);
+        }
+
+        return response()->json([
+            'message' => "Product saved successfully",
+            'data' => $product
+        ],201);
+    }
 }

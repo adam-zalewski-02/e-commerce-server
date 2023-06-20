@@ -29,4 +29,18 @@ class ProductService extends ServiceLanguages {
         ->first();
         return $data;
     }
+
+    public function addProduct($data) {
+        $this->validate($data);
+        if($this->hasErrors()) {
+            return;
+        }
+
+        $product = $this->_model->create($data);
+        foreach($data['translations'] as $translation) {
+            $product->translations()->create($translation);
+        }
+
+        return $product;
+    }
 }
