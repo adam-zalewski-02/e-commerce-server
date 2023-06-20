@@ -6,8 +6,19 @@ use App\Modules\Core\Services\ServiceLanguages;
 
 class ProductService extends ServiceLanguages {
 
-    protected $_rules = [];
-    protected $_rulesTranslations = [];
+    protected $_rules = [
+        'SKU' => 'required|string|unique:products',
+        'price' => 'required|numeric|min:0',
+        'stock' => 'required|integer|min:0',
+        'category_id' => 'nullable|exists:categories,id',
+    ];
+    
+    protected $_rulesTranslations = [
+        'product_id' => 'required|exists:products,id',
+        'locale' => 'required|string|max:255',
+        'name' => 'required|string|max:255',
+        'description' => 'nullable|string',
+    ];
 
     public function __construct(Product $model) {
         parent::__construct($model);
