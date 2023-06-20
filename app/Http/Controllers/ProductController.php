@@ -68,4 +68,18 @@ class ProductController extends Controller
             'data' => $product
         ], 200);
     }
+
+    public function deleteProduct($productId) {
+        $this->_service->deleteProduct($productId);
+
+        if($this->_service->hasErrors()) {
+            return response()->json([
+                'errors' => $this->_service->getErrors()
+            ], 400);
+        }
+
+        return response()->json([
+            'message' => 'Product deleted successfully'
+        ]);
+    }
 }

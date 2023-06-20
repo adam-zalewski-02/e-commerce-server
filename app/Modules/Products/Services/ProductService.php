@@ -69,4 +69,14 @@ class ProductService extends ServiceLanguages {
 
         return $product;
     }
+
+    public function deleteProduct($productId) {
+        if($this->hasErrors()) {
+            return;
+        }
+
+        $product = $this->productById($productId);
+        $product->translations()->delete();
+        $product->delete();
+    }
 }
