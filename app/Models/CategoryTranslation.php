@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class CategoryTranslation extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['category_id', 'locale', 'name'];
+
+    public function category() {
+        return $this->belongsTo(Category::class);
+    }
 }
