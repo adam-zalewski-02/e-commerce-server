@@ -33,4 +33,4 @@ Route::post('/categories', [CategoryController::class, 'addCategory']);
 
 Route::get('/categories/{categoryId}', [CategoryController::class, 'getCategory']);
 Route::put('/categories/{categoryId}', [CategoryController::class, 'updateCategory']);
-Rotue::delete('/categories/{categoryId}', [CategoryController::class, 'deleteCategory']);
+Route::delete('/categories/{categoryId}', [CategoryController::class, 'deleteCategory']);
