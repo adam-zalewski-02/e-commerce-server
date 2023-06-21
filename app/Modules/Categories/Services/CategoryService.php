@@ -16,5 +16,11 @@ class CategoryService extends ServiceLanguages {
         parent::__construct($model);
     }
 
-    
+    public function all() {
+        $data = $this->_model
+        ->with('translations')
+        ->get();
+
+        return $data;
+    }
 }
