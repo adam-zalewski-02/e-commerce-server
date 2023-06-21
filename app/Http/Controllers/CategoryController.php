@@ -52,8 +52,9 @@ class CategoryController extends Controller
         }
 
         return response()->json([
+            'message' => "Category saved successfully",
             'data' => $category
-        ], 200);
+        ], 201);
     }
 
     public function updateCategory(Request $request, $categoryId) {
@@ -67,6 +68,7 @@ class CategoryController extends Controller
         }
 
         return response()->json([
+            'message' => "Category updated successfully",
             'data' => $category
         ], 200);
     }
@@ -82,6 +84,6 @@ class CategoryController extends Controller
 
         return response()->json([
             'message' => 'Category deleted successfully'
-        ]);
+        ], 200);
     }
 }
