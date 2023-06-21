@@ -26,4 +26,18 @@ class CategoryController extends Controller
             'data' => $categories
         ], 200);
     }
+
+    public function getCategory($categoryId) {
+        $category = $this->_service->categoryById($categoryId);
+
+        if($category === null) {
+            return response()->json([
+                'error' => "No categories found"
+            ], 404);
+        }
+
+        return response()->json([
+            'data' => $category
+        ], 200);
+    }
 }

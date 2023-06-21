@@ -23,4 +23,12 @@ class CategoryService extends ServiceLanguages {
 
         return $data;
     }
+
+    public function categoryById($id) {
+        $data = $this->_model
+        ->with("translations")
+        ->where('id', $id)
+        ->first();
+        return $data;
+    }
 }
