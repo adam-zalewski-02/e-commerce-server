@@ -40,4 +40,34 @@ class CategoryController extends Controller
             'data' => $category
         ], 200);
     }
+
+    public function addCategory(Request $request) {
+        $data = $request->all();
+        $category = $this->_service->addCategory($data);
+
+        if($this->_service->hasErrors()) {
+            return response()->json([
+                'errors' => $this->_service->getErrors()
+            ], 400);
+        }
+
+        return response()->json([
+            'data' => $category
+        ], 200);
+    }
+
+    public function updateCategory(Request $request, $categoryId) {
+        $data = $request->all();
+        $category = $this->_service->updateCategory($data, $categoryId);
+
+        if($this->_service->hasErrors()) {
+            return response()->json([
+                'errors' => $this->_service->getErrors()
+            ], 400);
+        }
+
+        return response()->json([
+            'data' => $category
+        ], 200);
+    }
 }

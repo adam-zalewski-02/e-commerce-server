@@ -31,4 +31,33 @@ class CategoryService extends ServiceLanguages {
         ->first();
         return $data;
     }
+
+    public function addCategory($data) {
+        $this->validate($data);
+        if($this->hasErrors()) {
+            return;
+        }
+
+        $category = $this->_model->create($data);
+        foreach($data['translations'] as $translation) {
+            $category->translations()->create($translation);
+        }
+
+        return $category;
+    }
+
+    public function updateCategory($data, $id) {
+        $this->validate($data);
+        if($this->hasErrors()) {
+            return;
+        }
+
+        $category = $this->categoryById($id);
+        $category->update($data);
+        foreach($data['translations'] as $translation) {
+            $category->translations()->where('locale', $translation['locale'])->update($translation);
+        }
+
+        return $category;
+    }
 }
