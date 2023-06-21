@@ -60,4 +60,14 @@ class CategoryService extends ServiceLanguages {
 
         return $category;
     }
+
+    public function deleteCategory($id) {
+        if($this->hasErrors()) {
+            return;
+        }
+
+        $category = $this->categoryById($id);
+        $category->translations()->delete();
+        $category->delete();
+    }
 }

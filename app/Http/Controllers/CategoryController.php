@@ -70,4 +70,18 @@ class CategoryController extends Controller
             'data' => $category
         ], 200);
     }
+
+    public function deleteCategory($categoryId) {
+        $this->_service->deleteCategory($categoryId);
+
+        if($this->_service->hasErrors()) {
+            return response()->json([
+                'errors' => $this->_service->getErrors()
+            ], 400);
+        }
+
+        return response()->json([
+            'message' => 'Category deleted successfully'
+        ]);
+    }
 }
