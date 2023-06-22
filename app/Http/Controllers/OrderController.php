@@ -2,9 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Modules\Orders\Services\OrderService;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    //
+    private $_service;
+    public function __construct(OrderService $service)
+    {
+        $this->_service = $service;
+    }
+
+    public function getOrders() {
+        $orders = $this->_service->all();
+
+        if(empty($orders)) {
+            return response()->json([
+                'error' => 'No orders found'
+            ], 404);
+        }
+
+        return response()->json([
+            'data' => $orders
+        ], 200);
+    }
 }
