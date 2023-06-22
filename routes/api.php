@@ -37,3 +37,5 @@ Route::put('/categories/{categoryId}', [CategoryController::class, 'updateCatego
 Route::delete('/categories/{categoryId}', [CategoryController::class, 'deleteCategory']);
 
 Route::get('/orders', [OrderController::class, 'getOrders']);
+
+Route::get('/orders/{orderId}', [OrderController::class, 'getOrder']);

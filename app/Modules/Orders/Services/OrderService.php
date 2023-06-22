@@ -24,4 +24,12 @@ class OrderService extends Service {
 
         return $data;
     }
+
+    public function orderById($id) {
+        $data = $this->_model
+        ->where('id', $id)
+        ->first();
+        
+        return $data;
+    }
 }
