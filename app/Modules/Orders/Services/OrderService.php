@@ -32,4 +32,12 @@ class OrderService extends Service {
         
         return $data;
     }
+
+    public function orderByUserId($userId) {
+        $data = $this->_model
+        ->where('user_id', $userId)
+        ->get();
+
+        return $data;
+    }
 }

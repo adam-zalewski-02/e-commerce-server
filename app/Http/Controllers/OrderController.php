@@ -13,8 +13,14 @@ class OrderController extends Controller
         $this->_service = $service;
     }
 
-    public function getOrders() {
-        $orders = $this->_service->all();
+    public function getOrders(Request $request) {
+        $userId = $request->query('userId');
+
+        if($userId) {
+            $orders = $this->_service->orderByUserId($userId);
+        } else {
+            $orders = $this->_service->all();
+        }
 
         if(empty($orders)) {
             return response()->json([
