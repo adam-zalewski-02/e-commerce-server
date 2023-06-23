@@ -46,4 +46,20 @@ class OrderController extends Controller
             'data' => $order
         ]);
     }
+
+    public function addOrder(Request $request) {
+        $data = $request->all();
+        $order = $this->_service->addOrder($data);
+
+        if($this->_service->hasErrors()) {
+            return response()->json([
+                'errors' => $this->_service->getErrors()
+            ], 400);
+        }
+
+        return response()->json([
+            'message' => "Order saved successfully",
+            'data' => $order
+        ], 201);
+    }
 }

@@ -40,4 +40,16 @@ class OrderService extends Service {
 
         return $data;
     }
+
+
+    public function addOrder($data) {
+        $this->validate($data);
+
+        if($this->hasErrors()) {
+            return;
+        }
+
+        $order = $this->_model->create($data);
+        return $order;
+    }
 }
