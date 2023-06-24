@@ -62,4 +62,20 @@ class OrderController extends Controller
             'data' => $order
         ], 201);
     }
+
+    public function updateOrder(Request $request, $orderId) {
+        $data = $request->all();
+        $order = $this->_service->updateOrder($data, $orderId);
+
+        if($this->_service->hasErrors()) {
+            return response()->json([
+                'errors' => $this->_service->getErrors()
+            ], 400);
+        }
+
+        return response()->json([
+            'message' => "Order updated successfully",
+            'data' => $order
+        ], 200);
+    }
 }

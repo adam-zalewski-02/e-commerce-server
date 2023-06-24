@@ -52,4 +52,17 @@ class OrderService extends Service {
         $order = $this->_model->create($data);
         return $order;
     }
+
+    public function updateOrder($data, $orderId) {
+        $this->validate($data);
+
+        if($this->hasErrors()) {
+            return;
+        }
+
+        $order = $this->_model->orderById($orderId);
+        $order->update($data);
+
+        return $order;
+    }
 }

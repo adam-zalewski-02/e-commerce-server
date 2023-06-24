@@ -40,3 +40,4 @@ Route::get('/orders', [OrderController::class, 'getOrders']);
 Route::post('/orders', [OrderController::class, 'addOrder']);
 
 Route::get('/orders/{orderId}', [OrderController::class, 'getOrder']);
+Route::put('/orders/{orderId}', [OrderController::class, 'updateOrder']);
