@@ -78,4 +78,18 @@ class OrderController extends Controller
             'data' => $order
         ], 200);
     }
+
+    public function deleteOrder($orderId) {
+        $order = $this->_service->deleteOrder($orderId);
+
+        if($this->_service->hasErrors()) {
+            return response()->json([
+                'errors' => $this->_service->getErrors()
+            ], 400);
+        }
+
+        return response()->json([
+            'message' => "Order deleted successfully"
+        ], 200);
+    }
 }

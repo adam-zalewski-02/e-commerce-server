@@ -65,4 +65,13 @@ class OrderService extends Service {
 
         return $order;
     }
+
+    public function deleteOrder($orderId) {
+        if($this->hasErrors()) {
+            return;
+        }
+
+        $order = $this->_model->orderById($orderId);
+        $order->delete();
+    }
 }
