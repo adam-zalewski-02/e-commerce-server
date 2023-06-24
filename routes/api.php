@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,10 +28,16 @@ Route::get('/products/{productId}', [ProductController::class, 'getProduct']);
 Route::put('/products/{productId}', [ProductController::class, 'updateProduct']);
 Route::delete('/products/{productId}', [ProductController::class, 'deleteProduct']);
 
-
 Route::get('/categories', [CategoryController::class, 'getCategories']);
 Route::post('/categories', [CategoryController::class, 'addCategory']);
 
 Route::get('/categories/{categoryId}', [CategoryController::class, 'getCategory']);
 Route::put('/categories/{categoryId}', [CategoryController::class, 'updateCategory']);
 Route::delete('/categories/{categoryId}', [CategoryController::class, 'deleteCategory']);
+
+Route::get('/orders', [OrderController::class, 'getOrders']);
+Route::post('/orders', [OrderController::class, 'addOrder']);
+
+Route::get('/orders/{orderId}', [OrderController::class, 'getOrder']);
+Route::put('/orders/{orderId}', [OrderController::class, 'updateOrder']);
+Route::delete('/orders/{orderId}', [OrderController::class, 'deleteOrder']);
