@@ -15,16 +15,30 @@ class CartController extends Controller
     }
 
     public function getCarts() {
-        $data = $this->_service->all();
+        $carts = $this->_service->all();
 
-        if(empty($data)) {
+        if(empty($carts)) {
             return response()->json([
                 'error' => 'No carts found'
             ], 404);
         }
 
         return response()->json([
-            'data' => $data
+            'data' => $carts
+        ], 200);
+    }
+
+    public function getCart($cartId) {
+        $cart = $this->_service->cartById($cartId);
+
+        if($cart === null) {
+            return response()->json([
+                'error' => 'No carts found'
+            ], 404);
+        }
+
+        return response()->json([
+            'data' => $cart
         ], 200);
     }
 }

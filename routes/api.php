@@ -44,3 +44,5 @@ Route::put('/orders/{orderId}', [OrderController::class, 'updateOrder']);
 Route::delete('/orders/{orderId}', [OrderController::class, 'deleteOrder']);
 
 Route::get('/carts', [CartController::class, 'getCarts']);
+
+Route::get('/carts/{cartId}', [CartController::class, 'getCart']);

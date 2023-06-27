@@ -17,6 +17,14 @@ class CartService extends Service {
 
     public function all() {
         $data = $this->_model->get();
+
+        return $data;
+    }
+
+    public function cartById($id) {
+        $data = $this->_model
+        ->where('id', $id)
+        ->first();
         
         return $data;
     }
