@@ -14,4 +14,10 @@ class CartService extends Service {
     {
         parent::__construct($model);
     }
+
+    public function all() {
+        $data = $this->_model->get();
+        
+        return $data;
+    }
 }

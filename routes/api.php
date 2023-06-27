@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -41,3 +42,5 @@ Route::post('/orders', [OrderController::class, 'addOrder']);
 Route::get('/orders/{orderId}', [OrderController::class, 'getOrder']);
 Route::put('/orders/{orderId}', [OrderController::class, 'updateOrder']);
 Route::delete('/orders/{orderId}', [OrderController::class, 'deleteOrder']);
+
+Route::get('/carts', [CartController::class, 'getCarts']);
