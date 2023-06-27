@@ -63,4 +63,20 @@ class CartController extends Controller
             'data' => $cart
         ], 201);
     }
+
+    public function updateCart(Request $request, $cartId) {
+        $data = $request->all();
+        $cart = $this->_service->updateCart($data, $cartId);
+
+        if($this->_service->hasErrors()) {
+            return response()->json([
+                'errors' => $this->_service->getErrors()
+            ], 400);
+        }
+
+        return response()->json([
+            'message' => 'Cart updated successfully',
+            'data' => $cart
+        ], 200);
+    }
 }

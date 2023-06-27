@@ -47,3 +47,4 @@ Route::get('/carts', [CartController::class, 'getCarts']);
 Route::post('/carts', [CartController::class, 'addCart']);
 
 Route::get('/carts/{cartId}', [CartController::class, 'getCart']);
+Route::put('/carts/{cartId}', [CartController::class, 'updateCart']);

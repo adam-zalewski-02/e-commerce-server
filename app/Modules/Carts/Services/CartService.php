@@ -48,4 +48,17 @@ class CartService extends Service {
 
         return $cart;
     }
+
+    public function updateCart($data, $id) {
+        $this->validate($data);
+
+        if($this->hasErrors()) {
+            return;
+        }
+
+        $cart = $this->cartById($id);
+        $cart->update($data);
+
+        return $cart;
+    }
 }
