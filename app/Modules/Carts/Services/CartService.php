@@ -36,4 +36,16 @@ class CartService extends Service {
 
         return $data;
     }
+
+    public function addCart($data) {
+        $this->validate($data);
+
+        if($this->hasErrors()) {
+            return;
+        }
+
+        $cart = $this->_model->create($data);
+
+        return $cart;
+    }
 }

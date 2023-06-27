@@ -47,4 +47,20 @@ class CartController extends Controller
             'data' => $cart
         ], 200);
     }
+
+    public function addCart(Request $request) {
+        $data = $request->all();
+        $cart = $this->_service->addCart($data);
+
+        if($this->_service->hasErrors()) {
+            return response()->json([
+                'errors' => $this->_service->getErrors()
+            ], 400);
+        }
+
+        return response()->json([
+            'message' => 'Cart saved successfully',
+            'data' => $cart
+        ], 201);
+    }
 }
