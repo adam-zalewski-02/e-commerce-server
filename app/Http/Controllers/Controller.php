@@ -24,6 +24,12 @@ class Controller extends BaseController
         ], $statusCode);
     }
 
+    protected function sendDeletedResponse($message, $statusCode = Response::HTTP_OK) {
+        return response()->json([
+            'message' => $message
+        ], $statusCode);
+    }
+
     protected function sendNotFoundResponse($message, $statusCode = Response::HTTP_NOT_FOUND) {
         return response()->json([
             'error' => $message

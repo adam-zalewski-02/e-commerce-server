@@ -24,28 +24,20 @@ class CartController extends Controller
         }
 
         if(empty($carts)) {
-            return response()->json([
-                'error' => 'No carts found'
-            ], 404);
+            $this->sendNotFoundResponse("No carts found");
         }
 
-        return response()->json([
-            'data' => $carts
-        ], 200);
+        $this->sendOkResponse($carts);
     }
 
     public function getCart($cartId) {
         $cart = $this->_service->cartById($cartId);
 
         if($cart === null) {
-            return response()->json([
-                'error' => 'No carts found'
-            ], 404);
+            $this->sendNotFoundResponse("No carts found");
         }
 
-        return response()->json([
-            'data' => $cart
-        ], 200);
+        $this->sendOkResponse($cart);
     }
 
     public function addCart(Request $request) {
@@ -53,15 +45,11 @@ class CartController extends Controller
         $cart = $this->_service->addCart($data);
 
         if($this->_service->hasErrors()) {
-            return response()->json([
-                'errors' => $this->_service->getErrors()
-            ], 400);
+            $errors = $this->_service->getErrors();
+            $this->sendBadRequestResponse($errors);
         }
 
-        return response()->json([
-            'message' => 'Cart saved successfully',
-            'data' => $cart
-        ], 201);
+        $this->sendCreatedResponse("Cart saved successfully", $cart);
     }
 
     public function updateCart(Request $request, $cartId) {
@@ -69,28 +57,21 @@ class CartController extends Controller
         $cart = $this->_service->updateCart($data, $cartId);
 
         if($this->_service->hasErrors()) {
-            return response()->json([
-                'errors' => $this->_service->getErrors()
-            ], 400);
+            $errors = $this->_service->getErrors();
+            $this->sendBadRequestResponse($errors);
         }
 
-        return response()->json([
-            'message' => 'Cart updated successfully',
-            'data' => $cart
-        ], 200);
+        $this->sendOkResponse($cart);
     }
 
     public function deleteCart($cartId) {
         $this->_service->deleteCart($cartId);
 
         if($this->_service->hasErrors()) {
-            return response()->json([
-                'errors' => $this->_service->getErrors()
-            ], 400);
+            $errors = $this->_service->getErrors();
+            $this->sendBadRequestResponse($errors);
         }
 
-        return response()->json([
-            'message' => 'Cart deleted successfully'
-        ], 200);
+        $this->sendDeletedResponse("Cart deleted successfully");
     }
 }
