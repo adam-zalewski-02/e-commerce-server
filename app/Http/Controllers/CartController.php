@@ -79,4 +79,18 @@ class CartController extends Controller
             'data' => $cart
         ], 200);
     }
+
+    public function deleteCart($cartId) {
+        $this->_service->deleteCart($cartId);
+
+        if($this->_service->hasErrors()) {
+            return response()->json([
+                'errors' => $this->_service->getErrors()
+            ], 400);
+        }
+
+        return response()->json([
+            'message' => 'Cart deleted successfully'
+        ], 200);
+    }
 }

@@ -61,4 +61,13 @@ class CartService extends Service {
 
         return $cart;
     }
+
+    public function deleteCart($id) {
+        if($this->hasErrors()) {
+            return;
+        }
+
+        $cart = $this->cartById($id);
+        $cart->delete();
+    }
 }
