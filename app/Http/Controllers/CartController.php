@@ -14,8 +14,14 @@ class CartController extends Controller
         $this->_service = $service;
     }
 
-    public function getCarts() {
-        $carts = $this->_service->all();
+    public function getCarts(Request $request) {
+        $userId = $request->query('userId');
+
+        if($userId) {
+            $carts = $this->_service->cartByUserId($userId);
+        } else {
+            $carts = $this->_service->all();
+        }
 
         if(empty($carts)) {
             return response()->json([

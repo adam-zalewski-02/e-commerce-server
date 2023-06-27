@@ -25,7 +25,15 @@ class CartService extends Service {
         $data = $this->_model
         ->where('id', $id)
         ->first();
-        
+
+        return $data;
+    }
+
+    public function cartByUserId($userId) {
+        $data = $this->_model
+        ->where('user_id', $userId)
+        ->first();
+
         return $data;
     }
 }
