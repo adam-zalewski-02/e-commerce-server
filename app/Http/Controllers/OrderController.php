@@ -23,28 +23,20 @@ class OrderController extends Controller
         }
 
         if(empty($orders)) {
-            return response()->json([
-                'error' => 'No orders found'
-            ], 404);
+            $this->sendNotFoundResponse("No orders found");
         }
 
-        return response()->json([
-            'data' => $orders
-        ], 200);
+        $this->sendOkResponse(null, $orders);
     }
 
     public function getOrder($id) {
         $order = $this->_service->orderById($id);
 
         if($order === null) {
-            return response()->json([
-                'error' => "No orders found"
-            ], 404);
+            $this->sendNotFoundResponse("No orders found");
         }
 
-        return response()->json([
-            'data' => $order
-        ]);
+        $this->sendOkResponse(null, $order);
     }
 
     public function addOrder(Request $request) {
@@ -52,15 +44,11 @@ class OrderController extends Controller
         $order = $this->_service->addOrder($data);
 
         if($this->_service->hasErrors()) {
-            return response()->json([
-                'errors' => $this->_service->getErrors()
-            ], 400);
+            $errors = $this->_service->getErrors();
+            $this->sendBadRequestResponse($errors);
         }
 
-        return response()->json([
-            'message' => "Order saved successfully",
-            'data' => $order
-        ], 201);
+        $this->sendCreatedResponse("Order saved successfully", $order);
     }
 
     public function updateOrder(Request $request, $orderId) {
@@ -68,28 +56,21 @@ class OrderController extends Controller
         $order = $this->_service->updateOrder($data, $orderId);
 
         if($this->_service->hasErrors()) {
-            return response()->json([
-                'errors' => $this->_service->getErrors()
-            ], 400);
+            $errors = $this->_service->getErrors();
+            $this->sendBadRequestResponse($errors);
         }
 
-        return response()->json([
-            'message' => "Order updated successfully",
-            'data' => $order
-        ], 200);
+        $this->sendOkResponse("Order updated successfully", $order);
     }
 
     public function deleteOrder($orderId) {
         $order = $this->_service->deleteOrder($orderId);
 
         if($this->_service->hasErrors()) {
-            return response()->json([
-                'errors' => $this->_service->getErrors()
-            ], 400);
+            $errors = $this->_service->getErrors();
+            $this->sendBadRequestResponse($errors);
         }
 
-        return response()->json([
-            'message' => "Order deleted successfully"
-        ], 200);
+        $this->sendOkResponse("Order deleted successfully");
     }
 }

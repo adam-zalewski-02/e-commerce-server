@@ -17,24 +17,22 @@ class ProductController extends Controller
         $pages = $request->get("pages", 10);
 
         if($pages == 0) {
-            return response()->json(['error' => 'No products found.'], 404);
+           $this->sendNotFoundResponse("No products found");
         }
 
-        return response()->json([
-            'data' => $this->_service->all($pages)
-        ], 200);
+        $products = $this->_service->all($pages);
+
+        $this->sendOkResponse(null, $products);
     }
 
     public function getProduct($productId) {
         $product = $this->_service->productById($productId);
 
         if($product === null) {
-            return response()->json([
-                'error' => "Product with id '$productId' not found"
-            ], 404);
+            $this->sendNotFoundResponse("No products found");
         }
 
-        return response()->json(['data' => $product], 200);
+        $this->sendOkResponse(null, $product);
     }
 
     public function addProduct(Request $request) {
@@ -42,15 +40,11 @@ class ProductController extends Controller
         $product = $this->_service->addProduct($data);
 
         if($this->_service->hasErrors()) {
-            return response()->json([
-                'errors' => $this->_service->getErrors()
-            ], 400);
+            $errors = $this->_service->getErrors();
+            $this->sendBadRequestResponse($errors);
         }
 
-        return response()->json([
-            'message' => "Product saved successfully",
-            'data' => $product
-        ],201);
+        $this->sendCreatedResponse("Product saved successfully", $product);
     }
 
     public function updateProduct(Request $request, $productId) {
@@ -58,28 +52,21 @@ class ProductController extends Controller
         $product = $this->_service->updateProduct($data, $productId);
 
         if($this->_service->hasErrors()) {
-            return response()->json([
-                'errors' => $this->_service->getErrors()
-            ], 400);
+            $errors = $this->_service->getErrors();
+            $this->sendBadRequestResponse($errors);
         }
 
-        return response()->json([
-            'message' => "Product updated successfully",
-            'data' => $product
-        ], 200);
+        $this->sendOkResponse("Product updated successfully", $product);
     }
 
     public function deleteProduct($productId) {
         $this->_service->deleteProduct($productId);
 
         if($this->_service->hasErrors()) {
-            return response()->json([
-                'errors' => $this->_service->getErrors()
-            ], 400);
+            $errors = $this->_service->getErrors();
+            $this->sendBadRequestResponse($errors);
         }
 
-        return response()->json([
-            'message' => 'Product deleted successfully'
-        ]);
+        $this->sendOkResponse("Product deleted successfully");
     }
 }
