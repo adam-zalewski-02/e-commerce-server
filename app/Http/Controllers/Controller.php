@@ -11,7 +11,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
-    protected function sendOkResponse($data = null, $message = null, $key = 'data', $statusCode = Response::HTTP_OK) {
+    protected function sendOkResponse($message = null, $data = null, $key = 'data', $statusCode = Response::HTTP_OK) {
         if($message && $data) {
             return response()->json([
                 'message' => $message,

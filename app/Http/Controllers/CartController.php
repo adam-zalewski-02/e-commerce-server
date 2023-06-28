@@ -27,7 +27,7 @@ class CartController extends Controller
             $this->sendNotFoundResponse("No carts found");
         }
 
-        $this->sendOkResponse($carts);
+        $this->sendOkResponse(null, $carts);
     }
 
     public function getCart($cartId) {
@@ -37,13 +37,13 @@ class CartController extends Controller
             $this->sendNotFoundResponse("No carts found");
         }
 
-        $this->sendOkResponse($cart);
+        $this->sendOkResponse(null, $cart);
     }
 
     public function addCart(Request $request) {
         $data = $request->all();
         $cart = $this->_service->addCart($data);
-
+        
         if($this->_service->hasErrors()) {
             $errors = $this->_service->getErrors();
             $this->sendBadRequestResponse($errors);
@@ -61,7 +61,7 @@ class CartController extends Controller
             $this->sendBadRequestResponse($errors);
         }
 
-        $this->sendOkResponse($cart);
+        $this->sendOkResponse('Cart updated successfully', $cart);
     }
 
     public function deleteCart($cartId) {
@@ -72,6 +72,6 @@ class CartController extends Controller
             $this->sendBadRequestResponse($errors);
         }
 
-        $this->sendDeletedResponse("Cart deleted successfully");
+        $this->sendOkResponse("Cart deleted successfully");
     }
 }
