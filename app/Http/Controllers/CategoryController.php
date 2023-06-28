@@ -17,28 +17,20 @@ class CategoryController extends Controller
         $categories = $this->_service->all();
 
         if(empty($categories)) {
-            return response()->json([
-                'error' => "No categories found"
-            ], 404);
+            $this->sendNotFoundResponse("No categories found");
         }
 
-        return response()->json([
-            'data' => $categories
-        ], 200);
+        $this->sendOkResponse(null, $categories);
     }
 
     public function getCategory($categoryId) {
         $category = $this->_service->categoryById($categoryId);
 
         if($category === null) {
-            return response()->json([
-                'error' => "No categories found"
-            ], 404);
+            $this->sendNotFoundResponse("No categories found");
         }
 
-        return response()->json([
-            'data' => $category
-        ], 200);
+        $this->sendOkResponse(null, $category);
     }
 
     public function addCategory(Request $request) {
@@ -46,15 +38,11 @@ class CategoryController extends Controller
         $category = $this->_service->addCategory($data);
 
         if($this->_service->hasErrors()) {
-            return response()->json([
-                'errors' => $this->_service->getErrors()
-            ], 400);
+            $errors = $this->_service->getErrors();
+            $this->sendBadRequestResponse($errors);
         }
 
-        return response()->json([
-            'message' => "Category saved successfully",
-            'data' => $category
-        ], 201);
+        $this->sendCreatedResponse("Category saved successfully", $category);
     }
 
     public function updateCategory(Request $request, $categoryId) {
@@ -62,28 +50,22 @@ class CategoryController extends Controller
         $category = $this->_service->updateCategory($data, $categoryId);
 
         if($this->_service->hasErrors()) {
-            return response()->json([
-                'errors' => $this->_service->getErrors()
-            ], 400);
+            $errors = $this->_service->getErrors();
+            $this->sendBadRequestResponse($errors);
         }
 
-        return response()->json([
-            'message' => "Category updated successfully",
-            'data' => $category
-        ], 200);
+
+        $this->sendOkResponse("Category updated successfully", $category);
     }
 
     public function deleteCategory($categoryId) {
         $this->_service->deleteCategory($categoryId);
 
         if($this->_service->hasErrors()) {
-            return response()->json([
-                'errors' => $this->_service->getErrors()
-            ], 400);
+            $errors = $this->_service->getErrors();
+            $this->sendBadRequestResponse($errors);
         }
 
-        return response()->json([
-            'message' => 'Category deleted successfully'
-        ], 200);
+        $this->sendOkResponse("Category deleted successfully");
     }
 }
