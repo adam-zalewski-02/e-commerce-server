@@ -11,7 +11,17 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
-    protected function sendOkResponse($data, $key = 'data', $statusCode = Response::HTTP_OK) {
+    protected function sendOkResponse($data = null, $message = null, $key = 'data', $statusCode = Response::HTTP_OK) {
+        if($message && $data) {
+            return response()->json([
+                'message' => $message,
+                $key => $data
+            ], $statusCode);
+        } elseif($message && $data === null) {
+            return response()->json([
+                'message' => $message
+            ], $statusCode);
+        }
         return response()->json([
             $key => $data
         ], $statusCode);
@@ -21,12 +31,6 @@ class Controller extends BaseController
         return response()->json([
             'message' => $message,
             $key => $data
-        ], $statusCode);
-    }
-
-    protected function sendDeletedResponse($message, $statusCode = Response::HTTP_OK) {
-        return response()->json([
-            'message' => $message
         ], $statusCode);
     }
 
