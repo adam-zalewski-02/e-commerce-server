@@ -12,4 +12,11 @@ class Product extends Model
     public function translations() {
         return $this->hasMany(ProductTranslation::class);
     }
+
+    public function orders() {
+        return $this->belongsToMany(Order::class)
+                    ->using(OrderProduct::class)
+                    ->withPivot('quantity')
+                    ->withTimestamps();
+    }
 }
