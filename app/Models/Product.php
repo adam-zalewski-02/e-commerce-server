@@ -19,4 +19,11 @@ class Product extends Model
                     ->withPivot('quantity')
                     ->withTimestamps();
     }
+
+    public function products() {
+        return $this->belongsToMany(Cart::class)
+                    ->using(CartProduct::class)
+                    ->withPivot('quantity')
+                    ->withTimestamps();
+    }
 }
