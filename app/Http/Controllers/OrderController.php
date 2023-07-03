@@ -23,20 +23,20 @@ class OrderController extends Controller
         }
 
         if(empty($orders)) {
-            $this->sendNotFoundResponse("No orders found");
+            return $this->sendNotFoundResponse("No orders found");
         }
 
-        $this->sendOkResponse(null, $orders);
+        return $this->sendOkResponse(data: $orders);
     }
 
     public function getOrder($id) {
         $order = $this->_service->orderById($id);
 
         if($order === null) {
-            $this->sendNotFoundResponse("No orders found");
+            return $this->sendNotFoundResponse("No orders found");
         }
 
-        $this->sendOkResponse(null, $order);
+        return $this->sendOkResponse(data: $order);
     }
 
     public function addOrder(Request $request) {
@@ -45,10 +45,10 @@ class OrderController extends Controller
 
         if($this->_service->hasErrors()) {
             $errors = $this->_service->getErrors();
-            $this->sendBadRequestResponse($errors);
+            return $this->sendBadRequestResponse($errors);
         }
 
-        $this->sendCreatedResponse("Order saved successfully", $order);
+        return $this->sendCreatedResponse("Order saved successfully", $order);
     }
 
     public function updateOrder(Request $request, $orderId) {
@@ -57,10 +57,10 @@ class OrderController extends Controller
 
         if($this->_service->hasErrors()) {
             $errors = $this->_service->getErrors();
-            $this->sendBadRequestResponse($errors);
+            return $this->sendBadRequestResponse($errors);
         }
 
-        $this->sendOkResponse("Order updated successfully", $order);
+        return $this->sendOkResponse("Order updated successfully", $order);
     }
 
     public function deleteOrder($orderId) {
@@ -68,9 +68,9 @@ class OrderController extends Controller
 
         if($this->_service->hasErrors()) {
             $errors = $this->_service->getErrors();
-            $this->sendBadRequestResponse($errors);
+            return $this->sendBadRequestResponse($errors);
         }
 
-        $this->sendOkResponse("Order deleted successfully");
+        return $this->sendOkResponse("Order deleted successfully");
     }
 }

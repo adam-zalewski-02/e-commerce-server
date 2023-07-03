@@ -24,20 +24,20 @@ class CartController extends Controller
         }
 
         if(empty($carts)) {
-            $this->sendNotFoundResponse("No carts found");
+            return $this->sendNotFoundResponse("No carts found");
         }
 
-        $this->sendOkResponse(null, $carts);
+        return $this->sendOkResponse(data: $carts);
     }
 
     public function getCart($cartId) {
         $cart = $this->_service->cartById($cartId);
 
         if($cart === null) {
-            $this->sendNotFoundResponse("No carts found");
+            return $this->sendNotFoundResponse("No carts found");
         }
 
-        $this->sendOkResponse(null, $cart);
+        return $this->sendOkResponse(data: $cart);
     }
 
     public function addCart(Request $request) {
@@ -46,10 +46,10 @@ class CartController extends Controller
         
         if($this->_service->hasErrors()) {
             $errors = $this->_service->getErrors();
-            $this->sendBadRequestResponse($errors);
+            return $this->sendBadRequestResponse($errors);
         }
 
-        $this->sendCreatedResponse("Cart saved successfully", $cart);
+        return $this->sendCreatedResponse("Cart saved successfully", $cart);
     }
 
     public function updateCart(Request $request, $cartId) {
@@ -58,10 +58,10 @@ class CartController extends Controller
 
         if($this->_service->hasErrors()) {
             $errors = $this->_service->getErrors();
-            $this->sendBadRequestResponse($errors);
+            return $this->sendBadRequestResponse($errors);
         }
 
-        $this->sendOkResponse('Cart updated successfully', $cart);
+        return $this->sendOkResponse('Cart updated successfully', $cart);
     }
 
     public function deleteCart($cartId) {
@@ -69,9 +69,9 @@ class CartController extends Controller
 
         if($this->_service->hasErrors()) {
             $errors = $this->_service->getErrors();
-            $this->sendBadRequestResponse($errors);
+            return $this->sendBadRequestResponse($errors);
         }
 
-        $this->sendOkResponse("Cart deleted successfully");
+        return $this->sendOkResponse("Cart deleted successfully");
     }
 }

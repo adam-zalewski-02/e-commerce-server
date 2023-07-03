@@ -22,7 +22,7 @@ class ProductController extends Controller
 
         $products = $this->_service->all($pages);
 
-        return $this->sendOkResponse(null, $products);
+        return $this->sendOkResponse(data: $products);
     }
 
     public function getProduct($productId) {
@@ -32,7 +32,7 @@ class ProductController extends Controller
             return $this->sendNotFoundResponse("No products found");
         }
 
-        return $this->sendOkResponse(null, $product);
+        return $this->sendOkResponse(data: $product);
     }
 
     public function addProduct(Request $request) {

@@ -17,20 +17,20 @@ class CategoryController extends Controller
         $categories = $this->_service->all();
 
         if(empty($categories)) {
-            $this->sendNotFoundResponse("No categories found");
+            return $this->sendNotFoundResponse("No categories found");
         }
 
-        $this->sendOkResponse(null, $categories);
+        return $this->sendOkResponse(data: $categories);
     }
 
     public function getCategory($categoryId) {
         $category = $this->_service->categoryById($categoryId);
 
         if($category === null) {
-            $this->sendNotFoundResponse("No categories found");
+            return $this->sendNotFoundResponse("No categories found");
         }
 
-        $this->sendOkResponse(null, $category);
+        return $this->sendOkResponse(data: $category);
     }
 
     public function addCategory(Request $request) {
@@ -39,10 +39,10 @@ class CategoryController extends Controller
 
         if($this->_service->hasErrors()) {
             $errors = $this->_service->getErrors();
-            $this->sendBadRequestResponse($errors);
+            return $this->sendBadRequestResponse($errors);
         }
 
-        $this->sendCreatedResponse("Category saved successfully", $category);
+        return $this->sendCreatedResponse("Category saved successfully", $category);
     }
 
     public function updateCategory(Request $request, $categoryId) {
@@ -51,11 +51,11 @@ class CategoryController extends Controller
 
         if($this->_service->hasErrors()) {
             $errors = $this->_service->getErrors();
-            $this->sendBadRequestResponse($errors);
+            return $this->sendBadRequestResponse($errors);
         }
 
 
-        $this->sendOkResponse("Category updated successfully", $category);
+        return $this->sendOkResponse("Category updated successfully", $category);
     }
 
     public function deleteCategory($categoryId) {
@@ -63,9 +63,9 @@ class CategoryController extends Controller
 
         if($this->_service->hasErrors()) {
             $errors = $this->_service->getErrors();
-            $this->sendBadRequestResponse($errors);
+            return $this->sendBadRequestResponse($errors);
         }
 
-        $this->sendOkResponse("Category deleted successfully");
+        return $this->sendOkResponse("Category deleted successfully");
     }
 }
