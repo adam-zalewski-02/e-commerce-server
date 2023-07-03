@@ -74,4 +74,17 @@ class CartController extends Controller
 
         return $this->sendOkResponse("Cart deleted successfully");
     }
+
+    public function addProductToCart(Request $request, $cartId) {
+        $productId = $request->input('product_id');
+        $quantity = $request->input('quantity');
+
+        $result = $this->_service->addProductToCart($cartId, $productId, $quantity);
+
+        if(!$result) {
+            return $this->sendBadRequestResponse('Failed to add product to cart');
+        }
+
+        return $this->sendOkResponse('Product added to cart successfully');
+    }
 }

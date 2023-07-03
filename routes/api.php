@@ -49,3 +49,5 @@ Route::post('/carts', [CartController::class, 'addCart']);
 Route::get('/carts/{cartId}', [CartController::class, 'getCart']);
 Route::put('/carts/{cartId}', [CartController::class, 'updateCart']);
 Route::delete('/carts/{cartId}', [CartController::class, 'deleteCart']);
+
+Route::post('/carts/{cartId}/add-product', [CartController::class, 'addProductToCart']);

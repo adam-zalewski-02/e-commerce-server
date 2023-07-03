@@ -74,6 +74,13 @@ class CartService extends Service {
 
     public function addProductToCart($cartId, $productId, $quantity) {
         $cart = $this->cartById($cartId);
+
+        if(!$cart) {
+            return false;
+        }
+
         $cart->products()->attach($productId, ['quantity' => $quantity]);
+
+        return true;
     }
 }
