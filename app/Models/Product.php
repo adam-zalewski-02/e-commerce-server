@@ -9,6 +9,12 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'SKU', 
+        'price', 
+        'stock'
+    ];
+
     public function translations() {
         return $this->hasMany(ProductTranslation::class);
     }

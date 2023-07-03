@@ -17,22 +17,22 @@ class ProductController extends Controller
         $pages = $request->get("pages", 10);
 
         if($pages == 0) {
-           $this->sendNotFoundResponse("No products found");
+            return $this->sendNotFoundResponse("No products found");
         }
 
         $products = $this->_service->all($pages);
 
-        $this->sendOkResponse(null, $products);
+        return $this->sendOkResponse(null, $products);
     }
 
     public function getProduct($productId) {
         $product = $this->_service->productById($productId);
 
         if($product === null) {
-            $this->sendNotFoundResponse("No products found");
+            return $this->sendNotFoundResponse("No products found");
         }
 
-        $this->sendOkResponse(null, $product);
+        return $this->sendOkResponse(null, $product);
     }
 
     public function addProduct(Request $request) {
@@ -41,10 +41,10 @@ class ProductController extends Controller
 
         if($this->_service->hasErrors()) {
             $errors = $this->_service->getErrors();
-            $this->sendBadRequestResponse($errors);
+            return $this->sendBadRequestResponse($errors);
         }
 
-        $this->sendCreatedResponse("Product saved successfully", $product);
+        return $this->sendCreatedResponse("Product saved successfully", $product);
     }
 
     public function updateProduct(Request $request, $productId) {
@@ -53,10 +53,10 @@ class ProductController extends Controller
 
         if($this->_service->hasErrors()) {
             $errors = $this->_service->getErrors();
-            $this->sendBadRequestResponse($errors);
+            return $this->sendBadRequestResponse($errors);
         }
 
-        $this->sendOkResponse("Product updated successfully", $product);
+        return $this->sendOkResponse("Product updated successfully", $product);
     }
 
     public function deleteProduct($productId) {
@@ -64,9 +64,9 @@ class ProductController extends Controller
 
         if($this->_service->hasErrors()) {
             $errors = $this->_service->getErrors();
-            $this->sendBadRequestResponse($errors);
+            return $this->sendBadRequestResponse($errors);
         }
 
-        $this->sendOkResponse("Product deleted successfully");
+        return $this->sendOkResponse("Product deleted successfully");
     }
 }
