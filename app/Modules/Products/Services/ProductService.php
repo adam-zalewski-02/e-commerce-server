@@ -14,7 +14,7 @@ class ProductService extends ServiceLanguages {
     ];
     
     protected $_rulesTranslations = [
-        'product_id' => 'required',
+        'SKU' => 'required|string',
         'locale' => 'required|string|min:2|max:2',
         'name' => 'required|string|max:255',
         'description' => 'nullable|string',
@@ -48,8 +48,11 @@ class ProductService extends ServiceLanguages {
         }
 
         $product = $this->_model->create($data);
-        foreach($data['translations'] as $translation) {
-            $product->translations()->create($translation);
+
+        if(array_key_exists('translations', $data)){
+            foreach($data['translations'] as $translation) {
+                $product->translations()->create($translation);
+            }
         }
 
         return $product;

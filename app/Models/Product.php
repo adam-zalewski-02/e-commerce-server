@@ -16,7 +16,7 @@ class Product extends Model
     ];
 
     public function translations() {
-        return $this->hasMany(ProductTranslation::class);
+        return $this->hasMany(ProductTranslation::class, 'SKU', 'SKU');
     }
 
     public function orders() {

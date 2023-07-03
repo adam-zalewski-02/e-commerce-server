@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('product_translations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->string('SKU')->index();
+            $table->foreign('SKU')->references('SKU')->on('products')->onDelete('cascade');
             $table->string('locale')->index();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->unique(['product_id', 'locale']);
+            $table->unique(['SKU', 'locale']);
             $table->timestamps();
         });
     }

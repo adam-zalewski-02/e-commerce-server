@@ -9,9 +9,9 @@ class ProductTranslation extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['product_id', 'locale', 'name', 'description'];
+    protected $fillable = ['SKU', 'locale', 'name', 'description'];
 
     public function product() {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class, 'SKU', 'SKU');
     }
 }

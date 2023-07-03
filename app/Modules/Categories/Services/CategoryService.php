@@ -39,8 +39,11 @@ class CategoryService extends ServiceLanguages {
         }
 
         $category = $this->_model->create($data);
-        foreach($data['translations'] as $translation) {
-            $category->translations()->create($translation);
+
+        if(array_key_exists('translations', $data)){
+            foreach($data['translations'] as $translation) {
+                $category->translations()->create($translation);
+            }
         }
 
         return $category;
