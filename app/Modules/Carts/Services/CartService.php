@@ -2,6 +2,7 @@
 namespace App\Modules\Carts\Services;
 
 use App\Models\Cart;
+use App\Models\Product;
 use App\Modules\Core\Services\Service;
 
 class CartService extends Service {
@@ -69,5 +70,10 @@ class CartService extends Service {
 
         $cart = $this->cartById($id);
         $cart->delete();
+    }
+
+    public function addProductToCart($cartId, $productId, $quantity) {
+        $cart = $this->cartById($cartId);
+        $cart->products()->attach($productId, ['quantity' => $quantity]);
     }
 }
