@@ -15,6 +15,20 @@ class Product extends Model
         'stock'
     ];
 
+    protected $with = [
+        'category'
+    ];
+
+    protected $hidden = [
+        'category_id',
+        'created_at',
+        'updated_at'
+    ];
+
+    public function category() {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+
     public function translations() {
         return $this->hasMany(ProductTranslation::class, 'SKU', 'SKU');
     }

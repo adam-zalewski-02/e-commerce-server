@@ -11,6 +11,11 @@ class ProductTranslation extends Model
 
     protected $fillable = ['SKU', 'locale', 'name', 'description'];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
+
     public function product() {
         return $this->belongsTo(Product::class, 'SKU', 'SKU');
     }
